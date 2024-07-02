@@ -1,7 +1,6 @@
 package com.example.stepdefinitions;
 
 import com.example.pages.LoginPage;
-import com.example.pages.HomePage;
 import com.example.utils.DriverFactory;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -13,12 +12,10 @@ public class LoginSteps {
 
     private WebDriver driver;
     private LoginPage loginPage;
-    private HomePage homePage;
 
     public LoginSteps() {
         this.driver = DriverFactory.getDriver();
         this.loginPage = new LoginPage(driver);
-        this.homePage = new HomePage(driver);
     }
 
     @Given("user is on login page")
@@ -28,11 +25,11 @@ public class LoginSteps {
 
     @When("user enters valid credentials")
     public void user_enters_valid_credentials() throws InterruptedException {
-        loginPage.getUsernameField().sendKeys("standard_user");
+        loginPage.enterUsername("standard_user");
         Thread.sleep(3000);
-        loginPage.getPasswordField().sendKeys("secret_sauce");
+        loginPage.enterPassword("secret_sauce");
         Thread.sleep(3000);
-        loginPage.getLoginButton().click();
+        loginPage.clickOnLoginButton();
         Thread.sleep(3000);
     }
 

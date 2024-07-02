@@ -1,6 +1,8 @@
 package com.example.pages;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import com.example.utils.LocatorUtil;
 import java.util.Map;
 
@@ -12,10 +14,12 @@ public class HomePage {
         this.driver = driver;
         this.locators = LocatorUtil.loadLocators("locators/HomePageLocators.yaml");
     }
-
-    public boolean isDisplayed() {
-        // Implement logic to verify the home page is displayed
-        // For example, checking the presence of a specific element
-        return driver.findElement(LocatorUtil.getLocator(locators, "some_element")).isDisplayed();
+    
+    private WebElement element(String locatorName) {
+		return driver.findElement(LocatorUtil.getLocator(locators, locatorName));
     }
+
+	public void clickOnaddtoCartButton() {
+		element("addToCartButton").click();
+	}
 }

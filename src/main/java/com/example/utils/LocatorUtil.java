@@ -23,7 +23,15 @@ public class LocatorUtil {
                 return By.cssSelector(value);
             case "xpath":
                 return By.xpath(value);
-            // Add other types as needed
+            case "className":
+                return By.className(value);
+            case "tagName":
+                return By.tagName(value);
+            case "linkText":
+                return By.linkText(value);
+            case "partialLinkText":
+                return By.partialLinkText(value);
+            
             default:
                 throw new IllegalArgumentException("Locator type not supported: " + type);
         }

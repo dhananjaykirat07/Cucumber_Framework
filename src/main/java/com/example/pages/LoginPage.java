@@ -1,39 +1,50 @@
 package com.example.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import com.example.utils.Helper;
 import com.example.utils.LocatorUtil;
 import java.util.Map;
 
 public class LoginPage {
-	WebDriver driver;
-	Map<String, Map<String, String>> locators;
+    WebDriver driver;
+    Map<String, Map<String, String>> locators;
 
-	public LoginPage(WebDriver driver) {
-		this.driver = driver;
-		this.locators = LocatorUtil.loadLocators("locators/LoginPageLocators.yaml");
-	}
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+        this.locators = LocatorUtil.loadLocators("locators/LoginPageLocators.yaml");
+    }
 
-	public WebElement getUsernameField() {
-		return driver.findElement(LocatorUtil.getLocator(locators, "username_field"));
-	}
+    private WebElement element(String locatorName) {
+        return driver.findElement(LocatorUtil.getLocator(locators, locatorName));
+    }
 
-	public WebElement getPasswordField() {
-		return driver.findElement(LocatorUtil.getLocator(locators, "password_field"));
-	}
+    public void enterUsername(String username) {
+        element("username_field").sendKeys(username);
+    }
 
-	public WebElement getLoginButton() {
-		return driver.findElement(LocatorUtil.getLocator(locators, "login_button"));
-	}
+    public void enterPassword(String password) {
+        element("password_field").sendKeys(password);
+    }
 
-	public boolean homePageDisplayed() {
-		boolean status = false;
-		if (driver.findElement(LocatorUtil.getLocator(locators, "homePageTitle")).isDisplayed()) {
-			status = true;
-		}
-		return status;
-	}
+    /**
+     * to wait for element until it becomes clickable 
+     */
+    public void clickOnLoginButton() {
+        WebElement loginButton = element("login_button");
+        Helper.waitForElementToBeClickable(driver, loginButton, 10);
+        loginButton.click();
+    }
 
-	// Other methods to interact with the login page
+    /**
+     * to explicitly wait for an element until it becomes visible
+     * @return
+     */
+    public boolean homePageDisplayed() {
+        WebElement homePageTitle = element("homePageTitle");
+        Helper.waitForElementVisibility(driver, homePageTitle, 10);
+        return homePageTitle.isDisplayed();
+    }
+
+    // Other methods to interact with the login page
 }
