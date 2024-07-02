@@ -3,7 +3,10 @@ package com.example.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.example.utils.Helper;
 import com.example.utils.LocatorUtil;
+import com.example.utils.TestDataHandler;
+
 import java.util.Map;
 
 public class HomePage {
@@ -20,6 +23,17 @@ public class HomePage {
     }
 
 	public void clickOnaddtoCartButton() {
+		WebElement productToBeSelected = element("productToBeSelected");
+		Helper.waitForElementVisibility(driver, productToBeSelected, 10);
+		TestDataHandler.writeToFile("productToBeSelected", productToBeSelected.getText());
 		element("addToCartButton").click();
+	}
+
+	public void clickOnCartIconOnTop() {
+		element("cartIconOnTheTop").click();
+	}
+
+	public String getProductNameVisibleUnderCart() {
+		return element("productNameVisibleUnderCart").getText();
 	}
 }
